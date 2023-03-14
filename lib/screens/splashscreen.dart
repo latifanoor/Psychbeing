@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:psychbeing_app/screens/intro.dart';
 
-
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
@@ -48,7 +47,6 @@ class _SplashScreenState extends State<SplashScreen> {
             SizedBox(
               height: 20,
             ),
-
           ],
         ),
       ),

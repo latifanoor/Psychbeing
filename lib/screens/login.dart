@@ -1,12 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
-import 'package:psychbeing_app/screens/oneononchat.dart';
+import 'package:psychbeing_app/controllers/authcontroller.dart';
+import 'package:psychbeing_app/utils/utils.dart';
 
 import 'newsfeed.dart';
 
-class Login extends StatelessWidget {
+class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
 
+  @override
+  State<Login> createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
+  final _formKey = GlobalKey<FormBuilderState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,8 +24,7 @@ class Login extends StatelessWidget {
         width: Get.width,
         height: Get.height,
         padding: EdgeInsets.all(20),
-        child: Column(
-            children: [
+        child: Column(children: [
           Container(
             width: Get.width,
             height: Get.height * 0.5,
@@ -69,7 +77,7 @@ class Login extends StatelessWidget {
             height: 45,
             child: TextButton(
               onPressed: () {
-                Get.to(()=> Newsfeedpage());
+                _loginUser();
               },
               child: Text(
                 "LOGIN",
@@ -81,7 +89,7 @@ class Login extends StatelessWidget {
               ),
               style: ButtonStyle(
                   foregroundColor:
-                  MaterialStateProperty.all<Color>(Colors.white),
+                      MaterialStateProperty.all<Color>(Colors.white),
                   backgroundColor: MaterialStateProperty.all<Color>(
                       Color.fromRGBO(205, 220, 57, 1)),
                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
@@ -97,5 +105,24 @@ class Login extends StatelessWidget {
         ]),
       ),
     );
+  }
+
+  Future<void> _loginUser() async {
+    FocusScope.of(context).unfocus();
+    var validate = _formKey.currentState!.validate();
+    if (validate) {
+      _formKey.currentState!.save();
+      var fields = _formKey.currentState!.value;
+      Utils.showLoading();
+      var loggedIn =
+          await AuthController.to.login(fields["email"], fields["password"]);
+      SmartDialog.dismiss();
+
+      if (loggedIn) {
+        Get.offUntil(
+            GetPageRoute(page: () => const Newsfeedpage()), (route) => false);
+        Get.to(() => Newsfeedpage());
+      }
+    }
   }
 }

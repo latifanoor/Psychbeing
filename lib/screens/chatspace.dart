@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class Oneononespace extends StatelessWidget {
-  const Oneononespace({Key? key}) : super(key: key);
+class Chatspace extends StatelessWidget {
+  const Chatspace({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

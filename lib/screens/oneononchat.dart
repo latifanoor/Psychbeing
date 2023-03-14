@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:psychbeing_app/screens/chatspace.dart';
 import 'package:psychbeing_app/screens/doctorprofil.dart';
+import 'package:psychbeing_app/screens/newsfeed.dart';
 import 'package:psychbeing_app/screens/oneononchat.dart';
 
 class OneonOnechat extends StatelessWidget {
@@ -26,52 +26,50 @@ class OneonOnechat extends StatelessWidget {
               ))
         ],
       ),
-        body: ListView(children: [
-          ListTile(
-            onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => const Oneononespace(),
-                ),
-              );
-            },
-            leading: CircleAvatar(
-              backgroundImage: AssetImage("images/image11.png"),
-            ),
-            title: Text("DR. Ann Kamau"),
-            subtitle: Text("Psychologist"),
+      body: ListView(children: [
+        ListTile(
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const Newsfeedpage(),
+              ),
+            );
+          },
+          leading: CircleAvatar(
+            backgroundImage: AssetImage("images/image11.png"),
           ),
-
-          ListTile(
-            onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => const Doctorsprofile(),
-                ),
-              );
-            },
-            leading: CircleAvatar(
-              backgroundImage: AssetImage("images/image12.png"),
-            ),
-            title: Text("DR. Shiphie Mkamburi"),
-            subtitle: Text("Therapist"),
+          title: Text("DR. Ann Kamau"),
+          subtitle: Text("Psychologist"),
+        ),
+        ListTile(
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const Doctorsprofile(),
+              ),
+            );
+          },
+          leading: CircleAvatar(
+            backgroundImage: AssetImage("images/image12.png"),
           ),
-          ListTile(
-            onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => const Doctorsprofile(),
-                ),
-              );
-            },
-            leading: CircleAvatar(
-              backgroundImage: AssetImage("images/image12.png"),
-            ),
-            title: Text("DR. Antony Kim"),
-            subtitle: Text("Clinical Social Worker"),
+          title: Text("DR. Shiphie Mkamburi"),
+          subtitle: Text("Therapist"),
+        ),
+        ListTile(
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const Doctorsprofile(),
+              ),
+            );
+          },
+          leading: CircleAvatar(
+            backgroundImage: AssetImage("images/image12.png"),
           ),
-        ]),
-
+          title: Text("DR. Antony Kim"),
+          subtitle: Text("Clinical Social Worker"),
+        ),
+      ]),
     );
   }
 }
