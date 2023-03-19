@@ -80,7 +80,7 @@ class AuthController extends GetxController {
         return false;
       }
     } catch (firebaseAuthException) {
-      print((firebaseAuthException as FirebaseAuthException).message);
+      print(firebaseAuthException);
       Utils.showError("Signup Failed!");
       Utils.dismissLoader();
       return false;

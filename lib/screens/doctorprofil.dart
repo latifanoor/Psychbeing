@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:psychbeing_app/screens/chatspace.dart';
+import 'package:psychbeing_app/screens/linkscreen.dart';
+import 'package:psychbeing_app/screens/newsfeed.dart';
 
 class Doctorsprofile extends StatelessWidget {
   const Doctorsprofile({Key? key}) : super(key: key);
@@ -73,7 +74,7 @@ class Doctorsprofile extends StatelessWidget {
                     height: 45,
                     child: TextButton(
                       onPressed: () {
-                        Get.to(() => Chatspace());
+                        Get.to(() => Newsfeedpage());
                       },
                       child: Text(
                         "BOOKING",

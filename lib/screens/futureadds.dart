@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+/*import 'package:flutter/material.dart';
 import 'package:psychbeing_app/screens/doctorprofil.dart';
 import 'package:psychbeing_app/screens/groupspace.dart';
 
@@ -258,4 +258,44 @@ class Groupchats extends StatelessWidget {
       ),
     );
   }
-}
+}*/
+
+
+
+//Future Updates
+//THE GROUPSPACE CODES
+/*import 'package:flutter/material.dart';
+
+class Groupspace extends StatelessWidget {
+  const Groupspace({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      //APPBAR
+      appBar: AppBar(
+        backgroundColor: Color.fromRGBO(205, 220, 57, 1),
+        title: Text("Group Chat"),
+        actions: [
+          IconButton(
+              onPressed: () {},
+              icon: Icon(
+                Icons.search,
+                color: Colors.white,
+              ))
+        ],
+      ),
+    );
+  }
+  )*/
+
+
+//WILL ADD IN THE NEWSFEED
+/* if (value == 1) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const Groupchats()),
+            );
+          } else if (value == 1) {
+            Get.to(() => Groupchats());
+          }*/

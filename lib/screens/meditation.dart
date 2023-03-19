@@ -93,21 +93,20 @@ class Meditation extends StatelessWidget {
                         //first item
                         Expanded(
                             child: Meditation1(
-                              img: "images/yoga.png",
-                              title: "YOGA",
-                              onClicked: () {
-                              },
-                            )),
+                          img: "images/yoga.png",
+                          title: "YOGA",
+                          onClicked: () {},
+                        )),
                         SizedBox(
                           width: 20,
                         ),
                         //first item
                         Expanded(
                             child: Meditation1(
-                              img: "images/inspiration.png",
-                              title: "INSPIRATION",
-                              onClicked: () {},
-                            )),
+                          img: "images/inspiration.png",
+                          title: "INSPIRATION",
+                          onClicked: () {},
+                        )),
                       ],
                     ),
                     //second row
@@ -116,20 +115,20 @@ class Meditation extends StatelessWidget {
                         //first item
                         Expanded(
                             child: Meditation1(
-                              img: "images/vibe.png",
-                              title: "VIBE",
-                              onClicked: () {},
-                            )),
+                          img: "images/vibe.png",
+                          title: "VIBE",
+                          onClicked: () {},
+                        )),
                         SizedBox(
                           width: 20,
                         ),
                         //second item
                         Expanded(
                             child: Meditation1(
-                              img: "images/podcast.png",
-                              title: "PODCAST",
-                              onClicked: () {},
-                            )),
+                          img: "images/podcast.png",
+                          title: "PODCAST",
+                          onClicked: () {},
+                        )),
                       ],
                     ),
                   ],

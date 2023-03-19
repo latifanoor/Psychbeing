@@ -27,39 +27,46 @@ class maincontroller extends GetxController {
     var userId = AuthController.to.firebaseUser.value?.uid;
     try {
       await firestore.collection('newscollection').add({
-        "userId": userId,
+        "username": AuthController.to.firebaseUserData.value['username'],
         "image": image,
         "comment": comment,
+        "created": Timestamp.now(),
       });
       Utils.showSuccess("Posted");
     } catch (e) {
       Utils.showError("Try again");
     }
+    Utils.dismissLoader();
   }
 
-  createtherapy(image, name, bio) async {
-    Utils.showLoading(message: "creating therapy");
-    var userId = AuthController.to.firebaseUser.value?.uid;
-    try {
-      await firestore.collection('therapy').add({
-        "userId": userId,
-        "image": image,
-        "bio": bio,
-        "name": name,
-      });
-      Utils.showSuccess("Posted");
-    } catch (e) {
-      Utils.showError("Try again");
-    }
-  }
+  // createtherapy(image, name, bio, email) async {
+  //   Utils.showLoading(message: "creating therapy");
+  //   var userId = AuthController.to.firebaseUser.value?.uid;
+  //   try {
+  //     await firestore.collection('therapy').add({
+  //       "email": email,
+  //       "image": image,
+  //       "bio": bio,
+  //       "name": name,
+  //       "created": Timestamp.now(),
+  //     });
+  //     Utils.showSuccess("Posted");
+  //   } catch (e) {
+  //     Utils.showError("Try again");
+  //   }
+  //   Utils.dismissLoader();
+  // }
 
   //UPDATING DATA
   updatenewscollection(image, comment) async {
     Utils.showLoading(message: "updating newscollection");
     var userId = AuthController.to.firebaseUser.value?.uid;
     try {
-      await firestore.collection('newscollection').set({
-        "userId": userId,
+      await firestore
+          .collection('newscollection')
+          .doc(therapySelectedID.value)
+          .update({
+        "username": AuthController.to.firebaseUserData.value['username'],
         "image": image,
         "comment": comment,
       });
@@ -67,23 +74,25 @@ class maincontroller extends GetxController {
     } catch (e) {
       Utils.showError("Try again");
     }
+    Utils.dismissLoader();
   }
 
-  updatetherapy(image, bio, name) async {
-    Utils.showLoading(message: "updating therapy");
-    var userId = AuthController.to.firebaseUser.value?.uid;
-    try {
-      await firestore.collection('therapy').set({
-        "userId": userId,
-        "image": image,
-        "bio": bio,
-        "name": name,
-      });
-      Utils.showSuccess("Post Updated");
-    } catch (e) {
-      Utils.showError("Try again");
-    }
-  }
+  // updatetherapy(image, bio, name) async {
+  //   Utils.showLoading(message: "updating therapy");
+  //   var userId = AuthController.to.firebaseUser.value?.uid;
+  //   try {
+  //     await firestore.collection('therapy').set({
+  //       "userId": userId,
+  //       "image": image,
+  //       "bio": bio,
+  //       "name": name,
+  //     });
+  //     Utils.showSuccess("Post Updated");
+  //   } catch (e) {
+  //     Utils.showError("Try again");
+  //   }
+  //   Utils.dismissLoader();
+  // }
 
   //Deleting data
   deletenewscollection(id) async {
@@ -91,50 +100,40 @@ class maincontroller extends GetxController {
     var userId = AuthController.to.firebaseUser.value?.uid;
     try {
       await firestore.collection('newscollection').doc(id).delete();
-      ({
-        "userId": userId,
-      });
+
       Utils.showSuccess("Deleted");
     } catch (e) {
       Utils.showError("Try again");
     }
+    Utils.dismissLoader();
   }
 
-  deleteTherapy(id) async {
-    Utils.showLoading(message: "Deleting therapy");
-    var userId = AuthController.to.firebaseUser.value?.uid;
-    try {
-      await firestore.collection('threapy').doc(id).delete();
-      ({
-        "userId": userId,
-      });
-      Utils.showSuccess("Deleted");
-    } catch (e) {
-      Utils.showError("Try again");
-    }
-  }
+  // deleteTherapy(id) async {
+  //   Utils.showLoading(message: "Deleting therapy");
+  //   var userId = AuthController.to.firebaseUser.value?.uid;
+  //   try {
+  //     await firestore.collection('threapy').doc(id).delete();
+
+  //     Utils.showSuccess("Deleted");
+  //   } catch (e) {
+  //     Utils.showError("Try again");
+  //   }
+  //   Utils.dismissLoader();
+  // }
 
   //Fetch livestream
   Stream<Map<String, dynamic>> newscollectionStream() {
     var ref =
         FirebaseFirestore.instance.collection("newscollection").snapshots();
     return ref.map((list) {
-      var data = <String, dynamic>{};
-      list.docs.forEach((element) {
-        data[element.id] = element.data();
-      });
-      return data;
+      return {for (var element in list.docs) element.id: element.data()};
     });
   }
 
   Stream<Map<String, dynamic>> therapyStream() {
     var ref = FirebaseFirestore.instance.collection("therapy").snapshots();
     return ref.map((list) {
-      var data = <String, dynamic>{};
-      list.docs.forEach((element) {
-        data[element.id] = element.data();
-      });
-      return data;
+      return {for (var element in list.docs) element.id: element.data()};
     });
   }
 
