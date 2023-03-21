@@ -102,9 +102,11 @@ class AuthController extends GetxController {
       }
     } catch (firebaseAuthException) {
       print((firebaseAuthException as FirebaseAuthException).message);
+      print("Login field");
 
-      Utils.showError("Login  Failed!");
       Utils.dismissLoader();
+      Utils.showError("Login  Failed!");
+
       return false;
     }
     Utils.dismissLoader();

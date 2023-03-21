@@ -1,5 +1,9 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
+import 'package:path/path.dart';
 import 'package:psychbeing_app/controllers/authcontroller.dart';
 import 'package:psychbeing_app/utils/utils.dart';
 
@@ -120,6 +124,21 @@ class maincontroller extends GetxController {
   //   }
   //   Utils.dismissLoader();
   // }
+
+  //Upload Image
+  Future<String> uploadImage(File file) async {
+    var imageurl = '';
+    final storageRef = FirebaseStorage.instance.ref();
+    final imageRef = storageRef.child(basename(file.path));
+    try {
+      await imageRef.putFile(file);
+      imageurl = await imageRef.getDownloadURL();
+    } on FirebaseException catch (e) {
+      // ...
+    }
+
+    return imageurl;
+  }
 
   //Fetch livestream
   Stream<Map<String, dynamic>> newscollectionStream() {

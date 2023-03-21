@@ -46,20 +46,7 @@ class _AddNewsFeedState extends State<AddNewsFeed> {
                       : DecorationImage(image: NetworkImage(""))),
             ),
             SizedBox(height: 20),
-            //text input
-            TextFormField(
-              decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                  filled: true,
-                  hintStyle: TextStyle(color: Colors.grey[800]),
-                  hintText: "Username",
-                  fillColor: Colors.white70),
-            ),
-            SizedBox(
-              height: MediaQuery.of(context).size.width * 0.1,
-            ),
+
             //text input
             TextFormField(
               decoration: InputDecoration(
@@ -81,7 +68,7 @@ class _AddNewsFeedState extends State<AddNewsFeed> {
               child: TextButton(
                 onPressed: () {},
                 child: Text(
-                  "LOGIN",
+                  "Post",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Colors.black87,

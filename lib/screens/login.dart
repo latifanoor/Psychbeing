@@ -15,7 +15,9 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  final _formKey = GlobalKey<FormBuilderState>();
+  final _formKey = GlobalKey<FormState>();
+  var username = "";
+  var password = "";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,34 +45,51 @@ class _LoginState extends State<Login> {
           SizedBox(
             height: MediaQuery.of(context).size.width * 0.1,
           ),
-          //text input
-          TextFormField(
-            decoration: InputDecoration(
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-                filled: true,
-                hintStyle: TextStyle(color: Colors.grey[800]),
-                hintText: "Username",
-                fillColor: Colors.white70),
-          ),
-          SizedBox(
-            height: MediaQuery.of(context).size.width * 0.1,
-          ),
-          //text input
-          TextFormField(
-            decoration: InputDecoration(
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-                filled: true,
-                hintStyle: TextStyle(color: Colors.grey[800]),
-                hintText: "Username",
-                fillColor: Colors.white70),
-          ),
-          SizedBox(
-            height: MediaQuery.of(context).size.width * 0.1,
-          ),
+          Form(
+              key: _formKey,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  //text input
+                  TextFormField(
+                    onChanged: (value) {
+                      setState(() {
+                        username = value;
+                      });
+                    },
+                    decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        filled: true,
+                        hintStyle: TextStyle(color: Colors.grey[800]),
+                        hintText: "Email",
+                        fillColor: Colors.white70),
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.width * 0.1,
+                  ),
+                  //text input
+                  TextFormField(
+                    onChanged: (value) {
+                      setState(() {
+                        password = value;
+                      });
+                    },
+                    decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        filled: true,
+                        hintStyle: TextStyle(color: Colors.grey[800]),
+                        hintText: "Password",
+                        fillColor: Colors.white70),
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.width * 0.1,
+                  ),
+                ],
+              )),
           //SUBMIT BUTTON
           Container(
             width: Get.width,
@@ -109,14 +128,12 @@ class _LoginState extends State<Login> {
 
   Future<void> _loginUser() async {
     FocusScope.of(context).unfocus();
-    var validate = _formKey.currentState!.validate();
-    if (validate) {
-      _formKey.currentState!.save();
-      var fields = _formKey.currentState!.value;
-      Utils.showLoading();
-      var loggedIn =
-          await AuthController.to.login(fields["email"], fields["password"]);
-      SmartDialog.dismiss();
+    if (username == "") {
+      Utils.showError("Please fill in your username");
+    } else if (password == "") {
+      Utils.showError("Please fill in your Password");
+    } else {
+      var loggedIn = await AuthController.to.login(username, password);
 
       if (loggedIn) {
         Get.offUntil(

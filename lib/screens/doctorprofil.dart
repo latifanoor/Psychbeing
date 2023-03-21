@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:psychbeing_app/screens/linkscreen.dart';
 import 'package:psychbeing_app/screens/newsfeed.dart';
 
 class Doctorsprofile extends StatelessWidget {

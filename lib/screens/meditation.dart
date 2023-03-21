@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 
 import 'package:psychbeing_app/screens/meditation1.1.dart';
 import 'package:psychbeing_app/screens/newsfeed.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Meditation extends StatelessWidget {
   const Meditation({super.key});
@@ -95,7 +96,10 @@ class Meditation extends StatelessWidget {
                             child: Meditation1(
                           img: "images/yoga.png",
                           title: "YOGA",
-                          onClicked: () {},
+                          onClicked: () async {
+                            await goToYoutube(
+                                'https://www.youtube.com/watch?v=5DfnCD8T3zA');
+                          },
                         )),
                         SizedBox(
                           width: 20,
@@ -105,7 +109,10 @@ class Meditation extends StatelessWidget {
                             child: Meditation1(
                           img: "images/inspiration.png",
                           title: "INSPIRATION",
-                          onClicked: () {},
+                          onClicked: () async {
+                            await goToYoutube(
+                                "https://www.youtube.com/results?search_query=inspiration");
+                          },
                         )),
                       ],
                     ),
@@ -117,7 +124,10 @@ class Meditation extends StatelessWidget {
                             child: Meditation1(
                           img: "images/vibe.png",
                           title: "VIBE",
-                          onClicked: () {},
+                          onClicked: () async {
+                            await goToYoutube(
+                                "https://www.youtube.com/watch?v=kK0AHd9N7dk");
+                          },
                         )),
                         SizedBox(
                           width: 20,
@@ -127,7 +137,10 @@ class Meditation extends StatelessWidget {
                             child: Meditation1(
                           img: "images/podcast.png",
                           title: "PODCAST",
-                          onClicked: () {},
+                          onClicked: () async {
+                            await goToYoutube(
+                                "https://www.youtube.com/results?search_query=podcast");
+                          },
                         )),
                       ],
                     ),
@@ -139,5 +152,15 @@ class Meditation extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  //Go To Youtube
+  goToYoutube(url) async {
+    var urllaunchable = await canLaunchUrl(
+        Uri.parse(url)); //canLaunch is from url_launcher package
+    if (urllaunchable) {
+      await launchUrl(
+          Uri.parse(url)); //launch is from url_launcher package to launch URL
+    }
   }
 }
