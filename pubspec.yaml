@@ -48,7 +48,7 @@ dependencies:
   flutter_form_builder: ^7.8.0
   image_picker: ^0.8.7
   firebase_storage: ^11.0.16
-  path: ^1.8.3
+  path: ^1.8.2
 
 
 dev_dependencies:

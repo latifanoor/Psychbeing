@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:psychbeing_app/controllers/maincontroller.dart';
 import 'package:psychbeing_app/screens/doctorprofil.dart';
 import 'package:psychbeing_app/screens/newsfeed.dart';
 import 'package:psychbeing_app/screens/oneononchat.dart';
@@ -26,50 +28,23 @@ class OneonOnechat extends StatelessWidget {
               ))
         ],
       ),
-      body: ListView(children: [
-        ListTile(
-          onTap: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => const Newsfeedpage(),
-              ),
-            );
-          },
-          leading: CircleAvatar(
-            backgroundImage: AssetImage("images/image11.png"),
-          ),
-          title: Text("DR. Ann Kamau"),
-          subtitle: Text("Psychologist"),
-        ),
-        ListTile(
-          onTap: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => const Doctorsprofile(),
-              ),
-            );
-          },
-          leading: CircleAvatar(
-            backgroundImage: AssetImage("images/image12.png"),
-          ),
-          title: Text("DR. Shiphie Mkamburi"),
-          subtitle: Text("Therapist"),
-        ),
-        ListTile(
-          onTap: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => const Doctorsprofile(),
-              ),
-            );
-          },
-          leading: CircleAvatar(
-            backgroundImage: AssetImage("images/image12.png"),
-          ),
-          title: Text("DR. Antony Kim"),
-          subtitle: Text("Clinical Social Worker"),
-        ),
-      ]),
+      body: Obx(() {
+        return ListView(
+            children: maincontroller.to.therapy.entries
+                .map((e) => ListTile(
+                      onTap: () {
+                        Get.to(() => Doctorsprofile(
+                              therapist: e.value,
+                            ));
+                      },
+                      leading: CircleAvatar(
+                        backgroundImage: NetworkImage("${e.value["Image"]}"),
+                      ),
+                      title: Text("${e.value["Name"]}"),
+                      subtitle: Text("Therapist"),
+                    ))
+                .toList());
+      }),
     );
   }
 }

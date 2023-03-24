@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:psychbeing_app/screens/newsfeed.dart';
+import 'package:psychbeing_app/controllers/maincontroller.dart';
 
 class Doctorsprofile extends StatelessWidget {
-  const Doctorsprofile({Key? key}) : super(key: key);
-
+  const Doctorsprofile({Key? key, required this.therapist}) : super(key: key);
+  final Map therapist;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,7 +18,7 @@ class Doctorsprofile extends StatelessWidget {
               flexibleSpace: FlexibleSpaceBar(
                 centerTitle: true,
                 background: Ink.image(
-                  image: AssetImage("doc.jpeg"),
+                  image: NetworkImage("${therapist["Image"]}"),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -35,7 +34,7 @@ class Doctorsprofile extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "DR. Shiphie Mkamburi",
+                    "${therapist["Name"]}",
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                   ),
                   SizedBox(
@@ -61,7 +60,7 @@ class Doctorsprofile extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    "Psychotherapy, also called talk therapy or usually just is a form of treatment aimed at relieving emotional distress and mental health problems. Provided by any of a variety of trained professionals—psychiatrists, psychologists, social workers, or licensed counselors—it involves examining and gaining insight into life choices and difficulties faced by individuals, couples, or families. Therapy sessions refer to structured meetings between a licensed provider and a client with a goal of improving some aspect of their life. Psychotherapy encompasses many types of treatment and is practiced by a range of clinicians using a variety of strategies. The critical aspect is that the client or patient works collaboratively with the therapist and can identify improvement and positive change over time.",
+                    "${therapist["Bio"]}",
                     style: TextStyle(color: Colors.black87, fontSize: 14),
                   ),
                   SizedBox(
@@ -72,8 +71,9 @@ class Doctorsprofile extends StatelessWidget {
                     width: Get.width,
                     height: 45,
                     child: TextButton(
-                      onPressed: () {
-                        Get.to(() => Newsfeedpage());
+                      onPressed: () async {
+                        await maincontroller.to
+                            .sendEmail('${therapist["Name"]}');
                       },
                       child: Text(
                         "BOOKING",

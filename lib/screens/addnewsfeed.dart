@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:psychbeing_app/controllers/authcontroller.dart';
 
 class AddNewsFeed extends StatefulWidget {
@@ -35,15 +36,31 @@ class _AddNewsFeedState extends State<AddNewsFeed> {
         child: SingleChildScrollView(
             child: Column(
           children: [
-            Text("@latifanoor"),
+            Obx(() {
+              return Text(
+                  "@${AuthController.to.firebaseUserData.value['username']}");
+            }),
             SizedBox(height: 20),
-            Container(
-              height: Get.height * .3,
-              width: Get.width,
-              decoration: BoxDecoration(
-                  image: image == null
-                      ? DecorationImage(image: AssetImage("images/image1.jpg"))
-                      : DecorationImage(image: NetworkImage(""))),
+            InkWell(
+              onTap: () async {
+                var _imagePicker = ImagePicker();
+                var file =
+                    await _imagePicker.pickImage(source: ImageSource.gallery);
+                if (file != null) {
+                  setState(() {
+                    image = File(file.path);
+                  });
+                }
+              },
+              child: Container(
+                height: Get.height * .3,
+                width: Get.width,
+                decoration: BoxDecoration(
+                    image: image == null
+                        ? DecorationImage(
+                            image: AssetImage("images/image1.jpg"))
+                        : DecorationImage(image: FileImage(image!))),
+              ),
             ),
             SizedBox(height: 20),
 

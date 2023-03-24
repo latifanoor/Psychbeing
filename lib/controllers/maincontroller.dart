@@ -6,9 +6,11 @@ import 'package:get/get.dart';
 import 'package:path/path.dart';
 import 'package:psychbeing_app/controllers/authcontroller.dart';
 import 'package:psychbeing_app/utils/utils.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class maincontroller extends GetxController {
   var firestore;
+  static maincontroller get to => Get.find();
   //Creating a table (collections)
   var newscollection = <String, dynamic>{}.obs;
   var therapy = <String, dynamic>{}.obs;
@@ -29,10 +31,11 @@ class maincontroller extends GetxController {
   createnewscollection(image, comment) async {
     Utils.showLoading(message: "creating newscollection");
     var userId = AuthController.to.firebaseUser.value?.uid;
+    var imageUrl = await uploadImage(image);
     try {
       await firestore.collection('newscollection').add({
         "username": AuthController.to.firebaseUserData.value['username'],
-        "image": image,
+        "image": imageUrl,
         "comment": comment,
         "created": Timestamp.now(),
       });
@@ -150,7 +153,7 @@ class maincontroller extends GetxController {
   }
 
   Stream<Map<String, dynamic>> therapyStream() {
-    var ref = FirebaseFirestore.instance.collection("therapy").snapshots();
+    var ref = FirebaseFirestore.instance.collection("Therapy").snapshots();
     return ref.map((list) {
       return {for (var element in list.docs) element.id: element.data()};
     });
@@ -165,5 +168,17 @@ class maincontroller extends GetxController {
   selectTherapy(id) {
     therapySelectedID.value = id;
     update();
+  }
+
+  sendEmail(therapistName) async {
+    var email = "latiffa.noor3@gmail.com";
+    var subject = "Booking for Therapy";
+    var content = "When can I have my session with $therapistName?";
+    var emaillink =
+        "mailto:$email?subject=${Uri.encodeFull(subject)}&body=${Uri.encodeFull(content)}";
+    var _url = Uri.parse(emaillink);
+    if (!await launchUrl(_url)) {
+      print('Could not launch $_url');
+    }
   }
 }
